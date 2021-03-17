@@ -30,4 +30,20 @@ class ApiHandler {
         return jBody;
     }
   }
+
+  nuevaReview(json) async {
+    final response = await http.post(rutas["reviews"],
+        body: jsonEncode(json),
+        headers: {
+          "Accept": "application/json",
+          "content-type": "application/json"
+        });
+
+    print(response.statusCode);
+
+    switch (response.statusCode) {
+      case 201:
+        return "Se ha enviado con exito el mensaje";
+    }
+  }
 }
