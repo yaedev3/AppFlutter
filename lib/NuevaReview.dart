@@ -24,7 +24,13 @@ class _NuevaReviewState extends State<NuevaReview> {
     };
     print(json);
 
-    await ApiHandler().nuevaReview(json);
+    FocusScope.of(context).unfocus();
+
+    bool regreso = await ApiHandler().nuevaReview(json);
+
+    if (regreso) {
+      Navigator.pop(context);
+    }
   }
 
   @override

@@ -43,7 +43,29 @@ class ApiHandler {
 
     switch (response.statusCode) {
       case 201:
-        return "Se ha enviado con exito el mensaje";
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  obtenerReviews(id) async {
+    final response = await http.get(rutas["reviews"]);
+
+    switch (response.statusCode) {
+      case 200:
+        var body = utf8.decode(response.bodyBytes);
+        var jBody = jsonDecode(body);
+        var reviews = [];
+
+        for (var review in jBody) {
+          if (id == review['restaurant']) {
+            reviews.add(review);
+          }
+        }
+
+        reviews = reviews.reversed.toList();
+        return reviews;
     }
   }
 }
